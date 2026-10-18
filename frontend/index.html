@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a1018" />
+  <title>FraudGraph | Risk Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">F<span>G</span></span><span>fraud<span
+            class="brand-light">graph</span><small>RISK INTELLIGENCE</small></span></a>
+      <div class="side-label">WORKSPACE</div>
+      <button class="nav-item active" data-view="overview"><span>◫</span> Overview</button>
+      <button class="nav-item" data-view="alerts"><span>⌁</span> Fraud alerts <b id="nav-alert-count">3</b></button>
+      <button class="nav-item" data-view="investigate"><span>◎</span> Investigations</button>
+      <button class="nav-item" data-view="network"><span>⌘</span> Graph network</button>
+      <div class="side-bottom">
+        <div class="db-status"><span class="pulse"></span>
+          <div><strong>Neo4j connected</strong><small id="connection-copy">Checking database…</small></div>
+        </div>
+        <div class="profile">
+          <div class="avatar">AD</div>
+          <div><strong>Admin</strong><small>Adminstrator</small></div><span class="profile-dots">•••</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="crumb">Workspace <span>/</span> <strong id="crumb-current">Overview</strong></div>
+        <div class="top-actions"><span class="live-label"><i></i> LIVE DEMO</span><button class="icon-button"
+            id="refresh-btn" title="Refresh data">↻</button>
+          <div class="avatar small">NK</div>
+        </div>
+      </header>
+      <section class="page-heading">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> FRAUD RISK DETECTION MANAGEMENT</div>
+          <h1 id="page-title">See the connections.<br><em>Stop the pattern.</em></h1>
+          <p id="page-subtitle">A graph-first view of suspicious activity across customers, accounts and transactions.
+          </p>
+        </div>
+        <div class="heading-meta"><span class="meta-dot"></span><span>DATABASE</span><strong>NEO4J /
+            CYPHER</strong><small>Local academic environment</small></div>
+      </section>
+
+      <section class="kpi-grid" id="kpi-grid">
+        <article class="kpi-card">
+          <div class="kpi-top"><span>Customers</span><span class="kpi-icon cyan">♙</span></div><strong
+            id="kpi-customers">–</strong><small>Customer nodes</small>
+          <div class="mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </article>
+        <article class="kpi-card">
+          <div class="kpi-top"><span>Transactions</span><span class="kpi-icon blue">⇄</span></div><strong
+            id="kpi-transactions">–</strong><small>Transaction nodes</small>
+          <div class="mini-bars blue-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </article>
+        <article class="kpi-card">
+          <div class="kpi-top"><span>Fraud alerts</span><span class="kpi-icon amber">⌁</span></div><strong
+            id="kpi-alerts">–</strong><small>Flagged for review</small>
+          <div class="kpi-note"><span class="note-dot"></span> Synthetic sample data</div>
+        </article>
+        <article class="kpi-card">
+          <div class="kpi-top"><span>Open cases</span><span class="kpi-icon red">◎</span></div><strong
+            id="kpi-cases">–</strong><small>Investigation workload</small>
+          <div class="kpi-note red-note"><span class="note-dot"></span> Requires analyst attention</div>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel alerts-panel" id="alerts-panel">
+          <div class="panel-header">
+            <div>
+              <div class="section-kicker">PRIORITY QUEUE</div>
+              <h2>Fraud alerts <span class="count-pill" id="alert-pill">03</span></h2>
+            </div><button class="text-button" data-view="alerts">View all <span>↗</span></button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>TRANSACTION</th>
+                  <th>RISK SIGNAL</th>
+                  <th>AMOUNT</th>
+                  <th>STATUS</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="alerts-body">
+                <tr>
+                  <td colspan="5" class="empty">Connecting to Neo4j…</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-footer"><span class="footer-dot"></span> Results are read live from the graph database</div>
+        </article>
+        <article class="panel risk-panel">
+          <div class="panel-header">
+            <div>
+              <div class="section-kicker">RISK DISTRIBUTION</div>
+              <h2>Alert severity</h2>
+            </div><span class="tiny-tag">BY LEVEL</span>
+          </div>
+          <div class="risk-content">
+            <div class="donut" id="risk-donut">
+              <div class="donut-inner"><strong id="risk-total">03</strong><span>TOTAL ALERTS</span></div>
+            </div>
+            <div class="legend" id="risk-legend"></div>
+          </div>
+          <div class="risk-callout"><span class="callout-icon">↗</span>
+            <div><strong>Relationship-led detection</strong>
+              <p>Follow connections, not just isolated records.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel transactions-panel">
+        <div class="panel-header">
+          <div>
+            <div class="section-kicker">RECENT ACTIVITY</div>
+            <h2>Transaction stream</h2>
+          </div>
+          <div class="table-tools"><span class="tiny-tag">LATEST 8</span><span class="mono-label">SORTED BY ID</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>TRANSACTION ID</th>
+                <th>TYPE</th>
+                <th>LOCATION</th>
+                <th>AMOUNT</th>
+                <th>STATUS</th>
+                <th>DATE / TIME</th>
+              </tr>
+            </thead>
+            <tbody id="transactions-body">
+              <tr>
+                <td colspan="6" class="empty">Loading transactions…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel investigate-panel" id="investigate-section">
+        <div class="panel-header">
+          <div>
+            <div class="section-kicker">GRAPH INVESTIGATION</div>
+            <h2>Trace an alert</h2>
+            <p class="panel-desc">Traverse connected entities in Neo4j to see the investigation path.</p>
+          </div>
+        </div>
+        <div class="investigate-controls"><label for="alert-select">SELECT ALERT</label><select id="alert-select">
+            <option value="3001">Alert #3001 · Unusual Location</option>
+            <option value="3002">Alert #3002 · Unusual Transaction Time</option>
+            <option value="3003">Alert #3003 · Large Transaction</option>
+          </select><button class="primary-button" id="investigate-btn">Run investigation <span>↗</span></button></div>
+        <div id="investigation-result" class="investigation-result">
+          <div class="placeholder-orbit">◎</div>
+          <p>Select an alert and run the graph traversal to reveal its connected path.</p>
+        </div>
+      </section>
+
+      <section class="panel shared-panel">
+        <div class="panel-header">
+          <div>
+            <div class="section-kicker">GRAPH-ONLY DEMONSTRATION</div>
+            <h2>Shared indicator discovery</h2>
+            <p class="panel-desc">Synthetic device data connects accounts that otherwise appear separate.</p>
+          </div><button class="outline-button" id="shared-btn">Find connections ↗</button>
+        </div>
+        <div id="shared-result" class="shared-result"><span class="shared-placeholder">Run the query to discover shared
+            indicators.</span></div>
+      </section>
+      <footer><span>FRAUDGRAPH <b>·</b> DATABASE SYSTEMS DA3</span><span>Built for academic demonstration <b>·</b> Neo4j
+          + Cypher</span></footer>
+      <div id="toast" class="toast" role="status"></div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>
