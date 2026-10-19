@@ -1,4 +1,4 @@
-const API_BASE = "https://frauddetection-6c4q.onrender.com/";
+const API_BASE = "https://frauddetection-6c4q.onrender.com/api";
 const $ = (id) => document.getElementById(id);
 const money = (n) => new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(Number(n || 0));
 const riskClass = (level) => "risk-" + String(level || "low").toLowerCase();
